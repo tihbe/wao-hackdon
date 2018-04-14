@@ -102,7 +102,6 @@ function includeHTML() {
         if (this.readyState == 4) {
           if (this.status == 200) {
             elmnt.innerHTML = this.responseText;
-            //$.getScript()
             var reg = /<script.*src="(.*?)" ?>/gi;
             var m;
             do {
