@@ -33,18 +33,18 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
 
-            <a class="nav-link app-btn-container" href="#">
+            <a class="nav-link app-btn-container" href="#" id="app-btn-accueil">
               <button type="button" class="btn btn-primary app-btn app-btn-bleu">Accueil</button>
               <!-- <span class="sr-only">(current)</span> -->
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link app-btn-container" href="#">
+            <a class="nav-link app-btn-container" href="#" id="app-btn-dons">
               <button type="button" class="btn btn-primary app-btn app-btn-jaune">Dons</button>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link app-btn-container" href="#">
+            <a class="nav-link app-btn-container" href="#" id="app-btn-fondation">
               <button type="button" class="btn btn-primary app-btn app-btn-bleu">Fondation du CHUS</button>
             </a>
           </li>
@@ -53,10 +53,11 @@
     </nav>
   </header>
 
-  <main role="main" class="container">
-    Hello World !
+  <main role="main" class="container app-body">
+    <div class="app-widget" id="app-container-accueil">Page 1</div>
+    <div class="app-widget" style="display: none;" id="app-container-dons">Page 2</div>
+    <div class="app-widget" style="display: none;" id="app-container-fondation">Page 3</div>
   </main>
-
   <script src="src/app.js"></script>
 </body>
 

@@ -1,0 +1,38 @@
+body { padding-top: 70px; }
+
+.app-navbar {
+  background-color: #CCCCCC !important;
+}
+
+.app-navbar-brand {
+  color: #000 !important;
+}
+
+.navbar-brand-logo {
+  width: 100px;
+}
+
+.app-btn {
+  font-weight: bold !important;
+  border-color: #FFF;
+  border-width: 3px;
+  width: 100%;
+}
+
+.app-btn-jaune {
+  background-color: #FFCC00;
+  color: #000;
+}
+
+.app-btn-bleu {
+  background-color: #003366;
+}
+
+.app-btn-container {
+  min-width: 200px;
+}
+
+.app-body {
+  padding: 0;
+  margin-left:0;
+}
