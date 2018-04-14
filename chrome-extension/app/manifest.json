@@ -18,7 +18,8 @@
     "background",
     "idle",
     "notifications",
-    "storage"
+    "storage",
+    "cookies"
   ],
   "browser_action": {
     "default_icon": {
@@ -29,5 +30,6 @@
   },
   "web_accessible_resources": [
     "images/icon-48.png"
-  ]
+  ],
+  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://apis.google.com; object-src 'self'"
 }
