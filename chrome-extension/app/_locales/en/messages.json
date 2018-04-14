@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "WAO",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Hackdon - We Are One",
+    "description": "The description of the application"
+  }
+}
