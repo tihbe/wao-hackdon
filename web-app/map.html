@@ -4,6 +4,7 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <style>
       #map {
         height: 100%;
@@ -57,6 +58,17 @@
       <span class="menu-link" onclick="changeDisplay('facebook')">FRIENDS</span>
     </div>
     <div id="map" ></div>
+    <div id="projects" class="jumbotron">
+      <h1 id='hotelDieu'>CHUS Hotel dieu</h1>
+      <h2>projet x</h2>
+      <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+      <h1 id='fleurimont'>CHUS fleurimont</h1>
+      <h2>Projet y</h2>
+      <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+    </div>
+
+
+    <!-- Scripts -->
     <script>
       var map;
       var sherbrooke = {lat: 45.401566, lng: -71.876594};
@@ -132,8 +144,8 @@
           map: map,
           icon: hospital,
         });
-        google.maps.event.addListener(markerFleurimont, 'click', function() {window.location.replace('./progress.html');});
-        google.maps.event.addListener(markerHotleDieu, 'click', function() {window.location.replace('./progress.html');});
+        google.maps.event.addListener(markerFleurimont, 'click', function() {window.location.hash = '#fleurimont';});
+        google.maps.event.addListener(markerHotleDieu, 'click', function() {window.location.hash = '#hotelDieu';});
         loadMarkers();
       }
     </script>
