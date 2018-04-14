@@ -13,50 +13,53 @@ function changeDisplay(display) {
 function loadMarkers() {
 
   if (displayType === 'personal') {
-    var marker1 = new google.maps.Marker({
-      position: sherbrooke,
-      map: map,
-      icon: man,
-    });
-    var infowindow1 = new google.maps.InfoWindow({
-      content: "<blockquote><p>Grâce à tes dons, j'ai pu recevoir une tranfusion sanguine qui m'a sauvé la vie </p></blockquote>" +
-        " <br/><span class='quoteName'>-Mario Pelchat</span>"
-    });
-    var marker2 = new google.maps.Marker({
-      position: { lat: 45.411566, lng: -71.876594 },
-      map: map,
-      icon: woman,
-    });
-    var infowindow2 = new google.maps.InfoWindow({
-      content: "<blockquote><p>Grâce aux dons, le CHUS est équipé de la mahcine qui a sauvé la vie de ma fille de 3 ans," +
-        "je serai toujours reconnaissante</p></blockquote>" +
-        " <br/><span class='quoteName'>-Ginette Reno</span>"
-    });
-    google.maps.event.addListener(marker1, 'click', function () { infowindow1.open(map, marker1); });
-    google.maps.event.addListener(marker2, 'click', function () { infowindow2.open(map, marker2); });
+    loadThankYou();
   } else if (displayType === 'facebook') {
-    var facebookMarker1 = new google.maps.Marker({
-      position: { lat: 45.390594, lng: -71.858654 },
-      map: map,
-      icon: facebook,
-    });
-    var fbInfo1 = new google.maps.InfoWindow({
-      content: "<h2>Adam Létourneau</h2><p>Temps alouer: 26h</p><p>personnes atteintes: 5</p>"
-    });
-    var facebookMarker2 = new google.maps.Marker({
-      position: { lat: 45.409065, lng: -71.955171 },
-      map: map,
-      icon: facebook,
-    });
-    var fbInfo2 = new google.maps.InfoWindow({
-      content: "<h2>Ismael Balafrej</h2><p>Temps alouer: 26h</p><p>personnes atteintes: 5</p>"
-    });
+    // var facebookMarker1 = new google.maps.Marker({
+    //   position: { lat: 45.390594, lng: -71.858654 },
+    //   map: map,
+    //   icon: facebook,
+    // });
+    // var fbInfo1 = new google.maps.InfoWindow({
+    //   content: "<h2>Adam Létourneau</h2><p>Temps alouer: 26h</p><p>personnes atteintes: 5</p>"
+    // });
+    // var facebookMarker2 = new google.maps.Marker({
+    //   position: { lat: 45.409065, lng: -71.955171 },
+    //   map: map,
+    //   icon: facebook,
+    // });
+    // var fbInfo2 = new google.maps.InfoWindow({
+    //   content: "<h2>Ismael Balafrej</h2><p>Temps alouer: 26h</p><p>personnes atteintes: 5</p>"
+    // });
 
-    google.maps.event.addListener(facebookMarker1, 'click', function () { fbInfo1.open(map, facebookMarker1); });
-    google.maps.event.addListener(facebookMarker2, 'click', function () { fbInfo2.open(map, facebookMarker2); });
+    // google.maps.event.addListener(facebookMarker1, 'click', function () { fbInfo1.open(map, facebookMarker1); });
+    // google.maps.event.addListener(facebookMarker2, 'click', function () { fbInfo2.open(map, facebookMarker2); });
   }
 
 }
+
+
+function loadThankYou() {
+  firebase.database().ref("/thankyou").on("child_added", function(child_snap) {
+    var child = child_snap.val();
+    var marker = new google.maps.Marker({
+      position: child.location,
+      map: map,
+      icon: child.icon
+    });
+    var infowindow = new google.maps.InfoWindow({
+      content: child.content
+    });
+    google.maps.event.addListener(marker, 'click', function (i, m) { i.open(map, m); }.bind(this, infowindow, marker));
+  });
+}
+
+function loadFriends() {
+  
+}
+
+
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: sherbrooke,
