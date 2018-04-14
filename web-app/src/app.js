@@ -70,9 +70,9 @@ function auth() {
 
 //auth();
 
-$("#app-btn-accueil").on("click", function() {
+$("#app-btn-map").on("click", function() {
   $(".app-widget").hide();
-  $("#app-container-accueil").show();
+  $("#app-container-map").show();
 })
 
 $("#app-btn-dons").on("click", function() {
