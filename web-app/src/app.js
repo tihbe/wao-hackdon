@@ -19,8 +19,8 @@ function auth() {
     provider.setCustomParameters({
       'display': 'popup'
     });
-  
-    firebase.auth().getRedirectResult().then(function(result) {
+
+    firebase.auth().getRedirectResult().then(function (result) {
       if (!result.user) {
         firebase.auth().signInWithPopup(provider).then(function (result) {
           var token = result.credential.accessToken; //refreshToken ?
@@ -42,7 +42,7 @@ function auth() {
           };
           xhttp.open("GET", `https://graph.facebook.com/v2.12/${user.facebookUid}/friends?access_token=${token}`, true);
           xhttp.send();
-      
+
         }).catch(function (error) {
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -52,7 +52,7 @@ function auth() {
           //"uid", "displayName", "photoURL", "email"
         });
       }
-    }).catch(function(error) {
+    }).catch(function (error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -61,29 +61,34 @@ function auth() {
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
       console.error(errorMessage);
-      
+
     });
   })
-  
-  
+
+
 }
 
 //auth();
 
-$("#app-btn-map").on("click", function() {
+$("#app-btn-map").on("click", function () {
   $(".app-widget").hide();
   $("#app-container-map").show();
-})
+});
 
-$("#app-btn-dons").on("click", function() {
+$("#app-btn-dons").on("click", function () {
   $(".app-widget").hide();
   $("#app-container-dons").show();
-})
+});
 
-$("#app-btn-fondation").on("click", function() {
+$("#app-btn-fondation").on("click", function () {
   $(".app-widget").hide();
   $("#app-container-fondation").show();
-})
+});
+
+$("#app-btn-accueil").on("click", function () {
+  $(".app-widget").hide();
+  $("#app-container-accueil").show();
+});
 
 function includeHTML() {
   var z, i, elmnt, file, xhttp;
@@ -93,14 +98,25 @@ function includeHTML() {
     file = elmnt.getAttribute("include-html");
     if (file) {
       xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
+      xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
-          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+          if (this.status == 200) {
+            elmnt.innerHTML = this.responseText;
+            //$.getScript()
+            var reg = /<script.*src="(.*?)" ?>/gi;
+            var m;
+            do {
+              m = reg.exec(this.responseText);
+              if (m) {
+                $.getScript(m[1]);
+              }
+            } while (m);
+          }
+          if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
           elmnt.removeAttribute("include-html");
           includeHTML();
         }
-      } 
+      }
       xhttp.open("GET", file, true);
       xhttp.send();
       return;

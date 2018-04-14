@@ -18,11 +18,9 @@
 </head>
 
 <body>
-
   <header>
-    <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top app-navbar">
-      <a class="navbar-brand app-navbar-brand" href="#">
+      <a class="navbar-brand app-navbar-brand" href="#" id="app-btn-accueil">
         <img class="navbar-brand-logo" src="images/logo.png">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
@@ -54,11 +52,12 @@
   </header>
 
   <main role="main" class="container app-body">
-    <div class="app-widget" id="app-container-map" include-html="includes/map.html"></div>
+    <div class="app-widget" id="app-container-accueil" include-html="includes/accueil.html"></div>
+    <div class="app-widget" style="display: none;" id="app-container-map" include-html="includes/map.html"></div>
     <div class="app-widget" style="display: none;" id="app-container-dons" include-html="includes/dons.html"></div>
     <div class="app-widget" style="display: none;" id="app-container-fondation" include-html="includes/fondation.html"></div>
   </main>
-  <script src="src/app.js"></script>
+  <script src="./src/app.js"></script>
 </body>
 
 </html>

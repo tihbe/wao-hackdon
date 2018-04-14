@@ -1,0 +1,62 @@
+#map {
+  height: 100%;
+  position: inherit !important;
+}
+
+/* #map {
+  height: 100%;
+  position: inherit !important;
+}
+
+#menu {
+  position: absolute;
+  left: 40%;
+  top: 5%;
+  z-index: 3;
+  font-size: x-large;
+}
+
+.menu-link {
+  color: black;
+  text-decoration: none;
+}
+
+.menu-link:hover {
+  color: #ADD8E6;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+blockquote {
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+  margin-bottom: 0;
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+blockquote p {
+  display: inline;
+}
+
+.quoteName {
+  font-weight: bold;
+  margin-right: 0.25em;
+}
+
+.bold {
+  font-weight: bold;
+} */
