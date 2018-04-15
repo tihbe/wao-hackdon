@@ -16,10 +16,9 @@
   },
   "permissions": [
     "background",
-    "idle",
     "notifications",
     "storage",
-    "cookies"
+    "contextMenus"
   ],
   "browser_action": {
     "default_icon": {
@@ -28,8 +27,5 @@
     },
     "default_title": "WAO"
   },
-  "web_accessible_resources": [
-    "images/icon-48.png"
-  ],
   "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://apis.google.com; object-src 'self'"
 }
