@@ -62,10 +62,26 @@ function loadCharities() {
       map: map,
       icon: child.icon
     });
+
+    //3 friends progress
+    var rand1 = Math.random()*50+10;
+    var rand2 = Math.random()*20+5;
+    var rand3 = Math.random()*10;
+
+    let friend = function(color, width, name) {
+      return '<div class="progress-bar '+color+'" role="progressbar" style="width: '+width+'%" aria-valuenow="'+width+'" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" title="Mes amis" data-content="'+name+' a contribué à '+width.toFixed(2)+'% du défis en cours !" data-placement="top" data-boundary="viewport"></div>';
+    };
+
+    var friendProgress = '<div class="progress">' +
+      friend("", rand1, "Bob") +
+      friend("bg-success", rand2, "Alice") +
+      friend("bg-info", rand3, "Jean") +
+    '</div>';
+
     var infowindow = new google.maps.InfoWindow({
-      content: child.content
+      content: child.content + "<br><br>" + friendProgress
     });
-    google.maps.event.addListener(marker, 'click', function (i, m) { i.open(map, m); }.bind(this, infowindow, marker));
+    google.maps.event.addListener(marker, 'click', function (i, m) { i.open(map, m); $('[data-toggle="popover"]').popover({trigger: "hover"}); console.log("ayy"); }.bind(this, infowindow, marker));
   });
 }
 
