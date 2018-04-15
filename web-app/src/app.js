@@ -70,7 +70,7 @@ function auth() {
   });
 }
 
-//auth();
+auth();
 
 $("#app-btn-map").on("click", function () {
   $(".app-widget").hide();
