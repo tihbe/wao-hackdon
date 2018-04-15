@@ -51,7 +51,7 @@ function auth() {
         }
         jref.attr("aria-valuemax", user.goal);
         jref.attr("aria-valuenow", user.minedMinutes);
-        jref.text(user.minedMinutes  + " min")
+        jref.text((user.minedMinutes || 0)  + " min")
         
         var p = user.minedMinutes/user.goal*100;
         jref.css('width', p+'%');
@@ -69,7 +69,7 @@ function auth() {
   });
 }
 
-//auth();
+auth();
 
 $("#app-btn-map").on("click", function () {
   $(".app-widget").hide();

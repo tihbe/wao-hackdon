@@ -1,0 +1,41 @@
+[debug] [2018-04-15T05:14:29.465Z] ----------------------------------------------------------------------
+[debug] [2018-04-15T05:14:29.465Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Adam\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-04-15T05:14:29.465Z] CLI Version:   3.18.4
+[debug] [2018-04-15T05:14:29.465Z] Platform:      win32
+[debug] [2018-04-15T05:14:29.465Z] Node Version:  v6.11.0
+[debug] [2018-04-15T05:14:29.480Z] Time:          Sun Apr 15 2018 01:14:29 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-04-15T05:14:29.480Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-15T05:14:29.541Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-15T05:14:29.542Z] > authorizing via signed-in user
+[debug] [2018-04-15T05:14:29.546Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-04-15T05:14:29.546Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/t-c05TOOAyi4IL3XJA7Sckx_S_9M6p4Rzsv1O4cgA5c',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sun Apr 15 2018 01:14:29 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-04-15T05:14:29.783Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-15T05:14:29.855Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/wao-hackdon  
+  
+ Sun Apr 15 2018 01:14:29 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-04-15T05:14:30.185Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-15T05:14:30.185Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/wao-hackdon/tokens  
+  
+ Sun Apr 15 2018 01:14:30 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-04-15T05:14:30.622Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-15T05:14:30.622Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/wao-hackdon  
+  
+ Sun Apr 15 2018 01:14:30 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-04-15T05:14:30.915Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\Adam\Repositories\wao-hackdon\web-app'...
+[info] 
+[debug] [2018-04-15T05:14:30.918Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/879951076825/clients/_:getWebAppConfig  
+  
+ Sun Apr 15 2018 01:14:30 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-04-15T05:14:31.368Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: ./
+[info] +  hosting: Local server: http://localhost:5000
+
