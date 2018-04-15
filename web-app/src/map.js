@@ -12,25 +12,30 @@ function loadMarkers() {
   if (displayType === 'personal') {
     loadThankYou();
   } else if (displayType === 'facebook') {
-    // var facebookMarker1 = new google.maps.Marker({
-    //   position: { lat: 45.390594, lng: -71.858654 },
-    //   map: map,
-    //   icon: facebook,
-    // });
-    // var fbInfo1 = new google.maps.InfoWindow({
-    //   content: "<h2>Adam Létourneau</h2><p>Temps alouer: 26h</p><p>personnes atteintes: 5</p>"
-    // });
-    // var facebookMarker2 = new google.maps.Marker({
-    //   position: { lat: 45.409065, lng: -71.955171 },
-    //   map: map,
-    //   icon: facebook,
-    // });
-    // var fbInfo2 = new google.maps.InfoWindow({
-    //   content: "<h2>Ismael Balafrej</h2><p>Temps alouer: 26h</p><p>personnes atteintes: 5</p>"
-    // });
+    // loadFriends();
+    var facebookMarker1 = new google.maps.Marker({
+      position: { lat: 45.390594, lng: -71.858654 },
+      map: map,
+      icon: facebook,
+    });
+    var fbInfo1 = new google.maps.InfoWindow({
+      content: "<h2>Adam Létourneau</h2><p>J'ai contriburer 48 heures à la fondation du CHUS dans les cause suivantes:</p>" +
+      "<ul style=\"width: 60%; float:left;\"><li>Soins à l'enface</li><li>Recherche</li><li>Aide à la mobilité</li><li>Soins cranien</li></ul>" +
+      "<img style=\"float:right;\" src=\"https://www.lyceedelamergujan.fr/images/Icon64/pie-chart.png\" >"
+    });
+    var facebookMarker2 = new google.maps.Marker({
+      position: { lat: 45.409065, lng: -71.955171 },
+      map: map,
+      icon: facebook,
+    });
+    var fbInfo2 = new google.maps.InfoWindow({
+      content: "<h2>Ismael Balafrej</h2><p>J'ai contriburer 26 heures à la fondation du CHUS dans les cause suivantes:</p>" +
+      "<ul style=\"width: 60%; float:left;\"><li>Cancer</li><li>Recherche</li><li>Soins traumatologiques</li><li>Autres</li></ul>" +
+      "<img style=\"float:right;\" src=\"https://www.lyceedelamergujan.fr/images/Icon64/pie-chart.png\" >"
+    });
 
-    // google.maps.event.addListener(facebookMarker1, 'click', function () { fbInfo1.open(map, facebookMarker1); });
-    // google.maps.event.addListener(facebookMarker2, 'click', function () { fbInfo2.open(map, facebookMarker2); });
+    google.maps.event.addListener(facebookMarker1, 'click', function () { fbInfo1.open(map, facebookMarker1); });
+    google.maps.event.addListener(facebookMarker2, 'click', function () { fbInfo2.open(map, facebookMarker2); });
   }
 
 }
@@ -44,11 +49,29 @@ function loadThankYou() {
       map: map,
       icon: child.icon
     });
-    
+
     var photo = "https://graph.facebook.com/" + users[child.author].facebookUid + "/picture?width=9999"; //users[child.author].photoURL
     var video = child.video ? "<a href='" + child.video + "' target=\"_blank\"><img src='images/logo-youtube.png' width=35 height=27></a>" : '';
     var infowindow = new google.maps.InfoWindow({
       content: "<div class=\"container\"><div class=\"row\"><div class=\"col-4\"><img src=\""+photo+"\" style='width:100%'></div><div class=\"col-8\" style='font-size:16px;'><span style='font-weight:bold;font-size:24px'>"+child.name + "&nbsp;&nbsp;</span>"+video+"<br><br>" + child.content+"</div></div></div>"
+    });
+    google.maps.event.addListener(marker, 'click', function (i, m) { i.open(map, m); }.bind(this, infowindow, marker));
+  });
+}
+
+function loadFriends() {
+  firebase.database().ref("/friends").on("child_added", function(child_snap) {
+    var child = child_snap.val();
+    console.log(child);
+    var content = '<h2>' + child.name + '</h2>';
+    var marker = new google.maps.Marker({
+      position: child.location,
+      map: map,
+      icon: child.icon
+    });
+
+    var infowindow = new google.maps.InfoWindow({
+      content: content
     });
     google.maps.event.addListener(marker, 'click', function (i, m) { i.open(map, m); }.bind(this, infowindow, marker));
   });
