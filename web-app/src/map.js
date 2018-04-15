@@ -2,6 +2,7 @@ var map;
 var sherbrooke = { lat: 45.401566, lng: -71.876594 };
 var facebook = "http://www.pickle-tickle.in/wp-content/uploads/2016/08/facebook-logo-button.png";
 var displayType = 'personal';
+var users = []
 
 function changeDisplay(display) {
   displayType = display;
@@ -43,8 +44,11 @@ function loadThankYou() {
       map: map,
       icon: child.icon
     });
+    
+    var photo = "https://graph.facebook.com/" + users[child.author].facebookUid + "/picture?width=9999"; //users[child.author].photoURL
+    var video = child.video ? "<a href='" + child.video + "' target=\"_blank\"><img src='images/logo-youtube.png' width=35 height=27></a>" : '';
     var infowindow = new google.maps.InfoWindow({
-      content: child.content
+      content: "<div class=\"container\"><div class=\"row\"><div class=\"col-4\"><img src=\""+photo+"\" style='width:100%'></div><div class=\"col-8\" style='font-size:16px;'><span style='font-weight:bold;font-size:24px'>"+child.name + "&nbsp;&nbsp;</span>"+video+"<br><br>" + child.content+"</div></div></div>"
     });
     google.maps.event.addListener(marker, 'click', function (i, m) { i.open(map, m); }.bind(this, infowindow, marker));
   });
@@ -70,6 +74,10 @@ function initMap() {
     center: sherbrooke,
     zoom: 12
   });
-  loadMarkers();
-  loadCharities();
+  firebase.database().ref("/user").once("value", function(users_snap) {
+    users = users_snap.val();
+    loadMarkers();
+    loadCharities();
+  });
+
 }

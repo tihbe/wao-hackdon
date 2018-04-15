@@ -65,12 +65,11 @@ function auth() {
       var email = error.email;
       var credential = error.credential;
       console.error(errorMessage);
-      //"uid", "displayName", "photoURL", "email"
     });
   });
 }
 
-auth();
+//auth();
 
 $("#app-btn-map").on("click", function () {
   $(".app-widget").hide();
