@@ -16,7 +16,7 @@ body { padding-top: 70px; overflow:hidden; height:100%; }
   font-weight: bold !important;
   border-color: #FFF;
   border-width: 3px;
-  width: 100%;
+  width: 100%; 
 }
 
 .app-btn-jaune {
