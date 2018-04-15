@@ -44,23 +44,42 @@ firebase.auth().signInWithPopup(provider).then(function (result) {
   xhttp.send();
 
 
-  var createInterval = function() { 
+  var createInterval = function () {
     return setInterval(function () {
-    ref.child("minedMinutes").once("value", function (snap) {
-      if (miner.isRunning()) {
-        ref.update({ minedMinutes: (snap.val() ? snap.val() : 0) + 1 });
-      }
-    })
-  }, 60000);
-};
+      ref.child("minedMinutes").once("value", function (snap) {
+        if (miner.isRunning()) {
+          var minDone = (snap.val() ? snap.val() : 0) + 1;
+          ref.update({ minedMinutes: minDone });
+        }
+        ref.child("goal").once("value", function (snap) {
+
+          if (minDone >= goal) {
+            chrome.notifications.create('congratz', {
+              type: 'basic',
+              iconUrl: 'images/icon-128.png',
+              title: 'WOA | Félicitations !',
+              message: 'Vous avez completé votre but!',
+              buttons: [{title: "Partagez sur Facebook", iconUrl: "images/facebook.png"}]
+            });
+            chrome.notifications.onButtonClicked.addListener(function() {
+              chrome.tabs.create({
+                 url: "http://www.facebook.com/sharer.php?s=100&p[url]=https://wao-hackdon.firebaseapp.com"
+               });
+            }); 
+          }
+        });
+      });
+
+    }, 60000);
+  };
 
   var interval = -1;
 
-  miner.on('open', function() { 
+  miner.on('open', function () {
     interval = createInterval();
     ref.update({ isMining: true });
   });
-  miner.on("close", function() { 
+  miner.on("close", function () {
     if (interval !== -1) {
       clearInterval(interval);
       ref.update({ isMining: false });
@@ -74,7 +93,6 @@ firebase.auth().signInWithPopup(provider).then(function (result) {
   var email = error.email;
   var credential = error.credential;
   console.error(errorMessage);
-  //"uid", "displayName", "photoURL", "email"
 });
 
 chrome.browserAction.setBadgeText({ text: ' ' });
@@ -130,7 +148,7 @@ chrome.contextMenus.create({
   title: "Open WAO website",
   contexts: ["browser_action"],
   onclick: function () {
-    chrome.tabs.update({
+    chrome.tabs.create({
       url: "https://wao-hackdon.firebaseapp.com"
     });
   }
