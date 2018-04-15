@@ -20,52 +20,54 @@ function auth() {
       'display': 'popup'
     });
 
-    firebase.auth().getRedirectResult().then(function (result) {
-      if (!result.user) {
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-          var token = result.credential.accessToken; //refreshToken ?
-          var user = result.user;
-          var ref = firebase.database().ref("/user").child(user.uid);
-          user = {
-            uid: user.uid,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-            email: user.email,
-            facebookUid: user.providerData[0].uid
-          };
-          ref.update(user);
-          var xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              ref.child("friends").update(JSON.parse(xhttp.responseText));
-            }
-          };
-          xhttp.open("GET", `https://graph.facebook.com/v2.12/${user.facebookUid}/friends?access_token=${token}`, true);
-          xhttp.send();
+    firebase.auth().signInWithPopup(provider).then(function (result) {
+      var token = result.credential.accessToken; //refreshToken ?
+      var user = result.user;
+      var ref = firebase.database().ref("/user").child(user.uid);
+      user = {
+        uid: user.uid,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        email: user.email,
+        facebookUid: user.providerData[0].uid
+      };
+      ref.update(user);
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          ref.child("friends").update(JSON.parse(xhttp.responseText));
+        }
+      };
+      xhttp.open("GET", `https://graph.facebook.com/v2.12/${user.facebookUid}/friends?access_token=${token}`, true);
+      xhttp.send();
+      ref.on("value", function(user_snap) {
+        var jref = $("#app-progress-bar");
+        var user = user_snap.val();
+        
+        if (user.isMining) {
+          jref.addClass("progress-bar-animated");
+        } else {
+          jref.removeClass("progress-bar-animated");
+        }
+        jref.attr("aria-valuemax", user.goal);
+        jref.attr("aria-valuenow", user.minedMinutes);
+        jref.text(user.minedMinutes  + " min")
+        
+        var p = user.minedMinutes/user.goal*100;
+        jref.css('width', p+'%');
+        jref.parent().show();
+        
+      })
 
-        }).catch(function (error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          var email = error.email;
-          var credential = error.credential;
-          console.error(errorMessage);
-          //"uid", "displayName", "photoURL", "email"
-        });
-      }
     }).catch(function (error) {
-      // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // The email of the user's account used.
       var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
       console.error(errorMessage);
-
+      //"uid", "displayName", "photoURL", "email"
     });
-  })
-
-
+  });
 }
 
 //auth();
@@ -122,7 +124,5 @@ function includeHTML() {
     }
   }
 }
-
-
 
 includeHTML();
