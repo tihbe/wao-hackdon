@@ -18,6 +18,15 @@
   top: 25%;
   z-index: 3;
 }
+
+#progress {
+  cursor: pointer;
+  position: absolute;
+  left: 15%;
+  width: 70%;
+  top: 90%;
+  z-index: 3;
+}
 /* #map {
   height: 100%;
   position: inherit !important;

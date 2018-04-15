@@ -36,6 +36,7 @@ function loadMarkers() {
 
     google.maps.event.addListener(facebookMarker1, 'click', function () { fbInfo1.open(map, facebookMarker1); });
     google.maps.event.addListener(facebookMarker2, 'click', function () { fbInfo2.open(map, facebookMarker2); });
+    loadProgress();
   }
 
 }
@@ -56,6 +57,7 @@ function loadThankYou() {
       content: "<div class=\"container\"><div class=\"row\"><div class=\"col-4\"><img src=\""+photo+"\" style='width:100%'></div><div class=\"col-8\" style='font-size:16px;'><span style='font-weight:bold;font-size:24px'>"+child.name + "&nbsp;&nbsp;</span>"+video+"<br><br>" + child.content+"</div></div></div>"
     });
     google.maps.event.addListener(marker, 'click', function (i, m) { i.open(map, m); }.bind(this, infowindow, marker));
+    removeProgress();
   });
 }
 
@@ -75,6 +77,26 @@ function loadFriends() {
     });
     google.maps.event.addListener(marker, 'click', function (i, m) { i.open(map, m); }.bind(this, infowindow, marker));
   });
+}
+
+function removeProgress() {
+  document.getElementById("progress").innerHTML = "";
+}
+
+function loadProgress() {
+  var rand1 = Math.random()*50+10;
+  var rand2 = Math.random()*20+5;
+  var rand3 = Math.random()*10;
+  let friend = function(color, width, name) {
+    return '<div class="progress-bar '+color+'" role="progressbar" style="width: '+width+'%" aria-valuenow="'+width+'" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" title="Mes amis" data-content="'+name+' a contribué à '+width.toFixed(2)+'% du défis en cours !" data-placement="top" data-boundary="viewport"></div>';
+  };
+  var friendProgress = '<h3>You and your friends</h3><div class="progress" style="background-color: white">' +
+    friend("", rand1, "Bob") +
+    friend("bg-success", rand2, "Alice") +
+    friend("bg-info", rand3, "Jean") +
+  '</div>';
+
+  document.getElementById("progress").innerHTML = friendProgress;
 }
 
 function loadCharities() {
