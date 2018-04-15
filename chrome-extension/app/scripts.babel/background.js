@@ -47,13 +47,13 @@ firebase.auth().signInWithPopup(provider).then(function (result) {
   var createInterval = function () {
     return setInterval(function () {
       ref.child("minedMinutes").once("value", function (snap) {
+        var minDone = snap.val() || 0;
         if (miner.isRunning()) {
-          var minDone = (snap.val() ? snap.val() : 0) + 1;
+          minDone++;
           ref.update({ minedMinutes: minDone });
         }
         ref.child("goal").once("value", function (snap) {
-
-          if (minDone >= goal) {
+          if (minDone >= snap.val()) {
             chrome.notifications.create('congratz', {
               type: 'basic',
               iconUrl: 'images/icon-128.png',
@@ -66,6 +66,7 @@ firebase.auth().signInWithPopup(provider).then(function (result) {
                  url: "http://www.facebook.com/sharer.php?s=100&p[url]=https://wao-hackdon.firebaseapp.com"
                });
             }); 
+            ref.child("minedMinutes").set(0)
           }
         });
       });
